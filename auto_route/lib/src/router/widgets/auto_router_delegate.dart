@@ -37,13 +37,14 @@ class AutoRouterDelegate extends RouterDelegate<UrlState> with ChangeNotifier {
     return delegate as AutoRouterDelegate;
   }
 
-  static reportUrlChanged(BuildContext context, String url) {
+  static void reportUrlChanged(BuildContext context, String url) {
     Router.of(context)
         .routeInformationProvider
         ?.routerReportsNewRouteInformation(
           RouteInformation(
             location: url,
           ),
+          type: RouteInformationReportingType.navigate,
         );
   }
 

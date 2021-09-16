@@ -7,7 +7,9 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Testing RouteCollection', () {
-    test('Building default constructor with empty map should throw in assertion error', () {
+    test(
+        'Building default constructor with empty map should throw in assertion error',
+        () {
       expect(() => RouteCollection(LinkedHashMap()), throwsAssertionError);
     });
 
@@ -23,7 +25,7 @@ void main() {
       [routeA, routeB, routeC],
     );
     test('Calling [routes] should return a list of all route configs', () {
-      var expectedRoutes = [routeA, routeB, routeC];
+      final expectedRoutes = [routeA, routeB, routeC];
       expect(collection.routes, expectedRoutes);
     });
 
@@ -35,17 +37,23 @@ void main() {
       expect(collection.containsKey('X'), isFalse);
     });
 
-    test('Extracting sub collection of a branch route should return sub collection', () {
-      var expectedCollection = RouteCollection.from([subRouteC1]);
+    test(
+        'Extracting sub collection of a branch route should return sub collection',
+        () {
+      final expectedCollection = RouteCollection.from([subRouteC1]);
       expect(collection.subCollectionOf('C'), expectedCollection);
     });
 
-    test('Extracting sub collection of a leaf or a non-existing route should throw', () {
+    test(
+        'Extracting sub collection of a leaf or a non-existing route should throw',
+        () {
       expect(() => collection.subCollectionOf('A'), throwsAssertionError);
       expect(() => collection.subCollectionOf('X'), throwsAssertionError);
     });
 
-    test('Calling [] operator with an existing key should return corresponding route', () {
+    test(
+        'Calling [] operator with an existing key should return corresponding route',
+        () {
       expect(collection['A'], routeA);
     });
 
@@ -160,7 +168,8 @@ void main() {
       expect(match('/b', includePrefixMatches: true), expectedMatches);
     });
 
-    test('Should return two prefix matches with one nested match [A, C/C1]', () {
+    test('Should return two prefix matches with one nested match [A, C/C1]',
+        () {
       final expectedMatches = [
         RouteMatch(
           routeName: 'A',
@@ -189,7 +198,8 @@ void main() {
       expect(match('/c/c1', includePrefixMatches: true), expectedMatches);
     });
 
-    test('Should return two prefix matches with one nested match [A, D/D0]', () {
+    test('Should return two prefix matches with one nested match [A, D/D0]',
+        () {
       final expectedMatches = [
         RouteMatch(
           routeName: 'A',
@@ -218,7 +228,9 @@ void main() {
       expect(match('/d', includePrefixMatches: true), expectedMatches);
     });
 
-    test('Should return two matches with two nested matches including empty path [A, D/D0/D1]', () {
+    test(
+        'Should return two matches with two nested matches including empty path [A, D/D0/D1]',
+        () {
       final expectedMatches = [
         RouteMatch(
           routeName: 'A',
@@ -258,7 +270,8 @@ void main() {
       expect(match('/c/c1/undefined', includePrefixMatches: true), isNull);
     });
 
-    test('Should return two prefix matches and one full match [A, B, B/B1]', () {
+    test('Should return two prefix matches and one full match [A, B, B/B1]',
+        () {
       final expectedMatches = [
         RouteMatch(
           routeName: 'A',
@@ -345,15 +358,18 @@ void main() {
 
   group('Testing redirect routes', () {
     final routeA = RouteConfig('A', path: '/a');
-    final routeARedirect = RouteConfig('AR', path: '/', redirectTo: '/a', fullMatch: true);
+    final routeARedirect =
+        RouteConfig('AR', path: '/', redirectTo: '/a', fullMatch: true);
     final subRouteC1 = RouteConfig('C1', path: 'c1');
-    final subRouteC1Redirect = RouteConfig('C1R', path: '', redirectTo: 'c1', fullMatch: true);
+    final subRouteC1Redirect =
+        RouteConfig('C1R', path: '', redirectTo: 'c1', fullMatch: true);
     final routeC = RouteConfig(
       'C',
       path: '/c',
       children: [subRouteC1Redirect, subRouteC1],
     );
-    final routeAWCRedirect = RouteConfig('A-WC-R', path: '*', redirectTo: '/a', fullMatch: true);
+    final routeAWCRedirect =
+        RouteConfig('A-WC-R', path: '*', redirectTo: '/a', fullMatch: true);
 
     final routeCollection = RouteCollection.from(
       [routeA, routeC, routeARedirect, routeAWCRedirect],
@@ -442,7 +458,8 @@ void main() {
       expect(match('/a/1'), expectedMatches);
     });
 
-    test('Should match route [B] and extract path params {id:1, type:none}', () {
+    test('Should match route [B] and extract path params {id:1, type:none}',
+        () {
       final expectedMatches = [
         RouteMatch(
           routeName: 'B',
@@ -513,7 +530,9 @@ void main() {
       expect(match('/a?foo=bar'), expectedMatches);
     });
 
-    test('Should match routes [B,B1] and extract query params {foo:bar, bar:baz} for both', () {
+    test(
+        'Should match routes [B,B1] and extract query params {foo:bar, bar:baz} for both',
+        () {
       final expectedMatches = [
         RouteMatch(
           key: ValueKey('B'),
@@ -532,10 +551,13 @@ void main() {
           queryParams: Parameters({'foo': 'bar', 'bar': 'baz'}),
         )
       ];
-      expect(match('/b/b1?foo=bar&bar=baz', includePrefixMatches: true), expectedMatches);
+      expect(match('/b/b1?foo=bar&bar=baz', includePrefixMatches: true),
+          expectedMatches);
     });
 
-    test('Should match route [C/C1] and extract query parameters {foo:bar} for parent and child', () {
+    test(
+        'Should match route [C/C1] and extract query parameters {foo:bar} for parent and child',
+        () {
       final expectedMatches = [
         RouteMatch(
           routeName: 'C',

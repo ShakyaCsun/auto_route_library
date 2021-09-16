@@ -19,12 +19,13 @@ abstract class AutoRoutePage<T> extends Page<T> {
   Future<T?> get popped => _popCompleter.future;
 
   AutoRoutePage({
+    LocalKey? key,
     required this.routeData,
     required this.builder,
     this.fullscreenDialog = false,
     this.maintainState = true,
-    LocalKey? key,
   }) : super(
+          key: key,
           restorationId: 'simple_page',
           name: routeData.name,
           arguments: routeData.route.args,
@@ -44,9 +45,9 @@ abstract class AutoRoutePage<T> extends Page<T> {
       childToBuild = (childToBuild as AutoRouteWrapper).wrappedRoute(context);
     }
     return RouteDataScope(
-      child: childToBuild,
       segmentsHash: routeData.hashCode,
       routeData: routeData,
+      child: childToBuild,
     );
   }
 

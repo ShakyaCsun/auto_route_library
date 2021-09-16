@@ -17,7 +17,7 @@ class RouterScope extends InheritedWidget {
   }) : super(child: child);
 
   static RouterScope of(BuildContext context) {
-    var scope = context.dependOnInheritedWidgetOfExactType<RouterScope>();
+    final scope = context.dependOnInheritedWidgetOfExactType<RouterScope>();
     assert(() {
       if (scope == null) {
         throw FlutterError(

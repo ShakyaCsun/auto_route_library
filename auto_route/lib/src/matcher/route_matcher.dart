@@ -34,7 +34,7 @@ class RouteCollection {
       identical(this, other) ||
       other is RouteCollection &&
           runtimeType == other.runtimeType &&
-          MapEquality().equals(_routesMap, other._routesMap);
+          const MapEquality().equals(_routesMap, other._routesMap);
 
   @override
   int get hashCode => _routesMap.hashCode;
@@ -69,7 +69,7 @@ class RouteMatcher {
       String? redirectedFrom}) {
     final pathSegments = p.split(uri.path);
     final matches = <RouteMatch>[];
-    for (var config in collection.routes) {
+    for (final config in collection.routes) {
       var match = matchByPath(uri, config, redirectedFrom: redirectedFrom);
       if (match != null) {
         if (!includePrefixMatches || config.path == '*') {
@@ -144,23 +144,23 @@ class RouteMatcher {
 
   RouteMatch? matchByPath(Uri url, RouteConfig config,
       {String? redirectedFrom}) {
-    var parts = p.split(config.path);
-    var segments = p.split(url.path);
+    final parts = p.split(config.path);
+    final segments = p.split(url.path);
 
     if (parts.length > segments.length) {
       return null;
     }
 
     if (config.fullMatch &&
-        segments.length > parts.length &&
+        (segments.length > parts.length) &&
         (parts.isEmpty || parts.last != '*')) {
       return null;
     }
 
-    var pathParams = <String, String>{};
+    final pathParams = <String, String>{};
     for (var index = 0; index < parts.length; index++) {
-      var segment = segments[index];
-      var part = parts[index];
+      final segment = segments[index];
+      final part = parts[index];
       if (part.startsWith(':')) {
         pathParams[part.substring(1)] = segment;
       } else if (segment != part && part != "*") {
@@ -192,16 +192,16 @@ class RouteMatcher {
   }
 
   RouteMatch? _matchByRoute(PageRouteInfo route, RouteCollection routes) {
-    var config = routes[route.routeName];
+    final config = routes[route.routeName];
     if (config == null) {
       return null;
     }
-    var childMatches = <RouteMatch>[];
+    final childMatches = <RouteMatch>[];
     if (config.hasSubTree) {
       final subRoutes = routes.subCollectionOf(route.routeName);
       if (route.hasChildren) {
-        for (var childRoute in route.initialChildren!) {
-          var match = _matchByRoute(childRoute, subRoutes);
+        for (final childRoute in route.initialChildren!) {
+          final match = _matchByRoute(childRoute, subRoutes);
           if (match == null) {
             return null;
           } else {
@@ -239,8 +239,8 @@ class RouteMatcher {
   Map<String, dynamic> _normalizeSingleValues(
       Map<String, List<String>> queryParametersAll) {
     final queryMap = <String, dynamic>{};
-    for (var key in queryParametersAll.keys) {
-      var list = queryParametersAll[key];
+    for (final key in queryParametersAll.keys) {
+      final list = queryParametersAll[key];
       if (list!.length > 1) {
         queryMap[key] = list;
       } else if (list.isNotEmpty) {

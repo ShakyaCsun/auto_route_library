@@ -15,10 +15,10 @@ abstract class RootStackRouter extends StackRouter {
         router: this,
         route: const RouteMatch(
           routeName: 'Root',
-          segments: const [''],
+          segments: [''],
           path: '',
           stringMatch: '',
-          key: const ValueKey('Root'),
+          key: ValueKey('Root'),
         ),
       );
 
@@ -59,7 +59,7 @@ abstract class RootStackRouter extends StackRouter {
       DefaultRouteParser(matcher, includePrefixMatches: includePrefixMatches);
 
   AutoRoutePage _pageBuilder(RouteData data) {
-    var builder = pagesMap[data.name];
+    final builder = pagesMap[data.name];
     assert(builder != null);
     return builder!(data) as AutoRoutePage;
   }

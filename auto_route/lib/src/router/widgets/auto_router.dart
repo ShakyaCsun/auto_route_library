@@ -49,7 +49,7 @@ class AutoRouter extends StatefulWidget {
   AutoRouterState createState() => AutoRouterState();
 
   static StackRouter of(BuildContext context) {
-    var scope = StackRouterScope.of(context);
+    final scope = StackRouterScope.of(context);
     assert(() {
       if (scope == null) {
         throw FlutterError(
@@ -83,11 +83,11 @@ class AutoRouterState extends State<AutoRouter> {
 
     if (_controller == null) {
       _inheritableObserversBuilder = () {
-        var observers = widget.navigatorObservers();
+        final observers = widget.navigatorObservers();
         if (!widget.inheritNavigatorObservers) {
           return observers;
         }
-        var inheritedObservers = parentScope.inheritableObserversBuilder();
+        final inheritedObservers = parentScope.inheritableObserversBuilder();
         return inheritedObservers + observers;
       };
       _navigatorObservers = _inheritableObserversBuilder();
@@ -118,7 +118,7 @@ class AutoRouterState extends State<AutoRouter> {
   @override
   Widget build(BuildContext context) {
     assert(_controller != null);
-    var navigator = AutoRouteNavigator(
+    final navigator = AutoRouteNavigator(
       router: _controller!,
       navRestorationScopeId: widget.navRestorationScopeId,
       navigatorObservers: _navigatorObservers,
@@ -198,11 +198,11 @@ class _DeclarativeAutoRouterState extends State<_DeclarativeAutoRouter> {
       _heroController = HeroController();
       final parentScope = RouterScope.of(context);
       _inheritableObserversBuilder = () {
-        var observers = widget.navigatorObservers();
+        final observers = widget.navigatorObservers();
         if (!widget.inheritNavigatorObservers) {
           return observers;
         }
-        var inheritedObservers = parentScope.inheritableObserversBuilder();
+        final inheritedObservers = parentScope.inheritableObserversBuilder();
         return inheritedObservers + observers;
       };
       _navigatorObservers = _inheritableObserversBuilder();

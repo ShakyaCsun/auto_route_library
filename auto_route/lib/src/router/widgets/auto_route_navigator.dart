@@ -40,12 +40,12 @@ class _AutoRouteNavigatorState extends State<AutoRouteNavigator> {
   void _updateDeclarativeRoutes() {
     var shouldNotify = false;
     final delegate = AutoRouterDelegate.of(context);
-    var newRoutes = widget.declarativeRoutesBuilder!(context);
-    if (!ListEquality().equals(newRoutes, _routesSnapshot)) {
+    final newRoutes = widget.declarativeRoutesBuilder!(context);
+    if (!const ListEquality().equals(newRoutes, _routesSnapshot)) {
       shouldNotify = true;
       _routesSnapshot = newRoutes;
       widget.router.updateDeclarativeRoutes(newRoutes);
-    } else if (!ListEquality().equals(
+    } else if (!const ListEquality().equals(
       delegate.urlState.segments,
       delegate.controller.currentSegments,
     )) {
@@ -76,13 +76,13 @@ class _AutoRouteNavigatorState extends State<AutoRouteNavigator> {
       pages: widget.router.hasEntries
           ? widget.router.stack
           : [_PlaceHolderPage(widget.placeholder)],
-      transitionDelegate: _CustomTransitionDelegate(),
+      transitionDelegate: const _CustomTransitionDelegate(),
       onPopPage: (route, result) {
         if (!route.didPop(result)) {
           return false;
         }
         if (route.settings is AutoRoutePage) {
-          var routeData = (route.settings as AutoRoutePage).routeData;
+          final routeData = (route.settings as AutoRoutePage).routeData;
           widget.router.removeRoute(routeData);
           widget.didPop?.call(routeData.route, result);
         }
@@ -93,10 +93,10 @@ class _AutoRouteNavigatorState extends State<AutoRouteNavigator> {
     // fixes nested cupertino routes back gesture issue
     if (!widget.router.isRoot) {
       return WillPopScope(
-        child: navigator,
         onWillPop: widget.router.canPopSelfOrChildren
             ? () => SynchronousFuture(true)
             : null,
+        child: navigator,
       );
     }
 

@@ -13,7 +13,7 @@ class RouteDataScope extends InheritedWidget {
   }) : super(child: child);
 
   static RouteData of(BuildContext context) {
-    var scope = context.dependOnInheritedWidgetOfExactType<RouteDataScope>();
+    final scope = context.dependOnInheritedWidgetOfExactType<RouteDataScope>();
     assert(() {
       if (scope == null) {
         throw FlutterError(
