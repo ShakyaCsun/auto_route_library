@@ -88,7 +88,7 @@ class UrlState {
       for (final key in queries.keys) {
         final value = queries[key]?.toString() ?? '';
         if (value.isNotEmpty) {
-          queryParams[key] = value.toString();
+          queryParams[key] = value;
         }
       }
     }

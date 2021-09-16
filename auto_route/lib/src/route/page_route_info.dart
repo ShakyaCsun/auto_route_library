@@ -130,7 +130,7 @@ class PageRouteInfo<T> {
           _name == other._name &&
           path == other.path &&
           fragment == other.fragment &&
-          ListEquality().equals(initialChildren, other.initialChildren) &&
+          const ListEquality().equals(initialChildren, other.initialChildren) &&
           const MapEquality().equals(rawPathParams, other.rawPathParams) &&
           const MapEquality().equals(rawQueryParams, other.rawQueryParams);
 

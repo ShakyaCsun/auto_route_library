@@ -84,26 +84,26 @@ class RouteMatch {
           stringMatch == other.stringMatch &&
           pathParams == other.pathParams &&
           key == other.key &&
-          ListEquality().equals(guards, other.guards) &&
+          const ListEquality().equals(guards, other.guards) &&
           queryParams == other.queryParams &&
-          ListEquality().equals(children, other.children) &&
+          const ListEquality().equals(children, other.children) &&
           fragment == other.fragment &&
           redirectedFrom == other.redirectedFrom &&
-          ListEquality().equals(segments, other.segments);
+          const ListEquality().equals(segments, other.segments);
 
   @override
   int get hashCode =>
       pathParams.hashCode ^
       queryParams.hashCode ^
-      ListEquality().hash(children) ^
-      ListEquality().hash(guards) ^
+      const ListEquality().hash(children) ^
+      const ListEquality().hash(guards) ^
       fragment.hashCode ^
       redirectedFrom.hashCode ^
       path.hashCode ^
       stringMatch.hashCode ^
       routeName.hashCode ^
       key.hashCode ^
-      ListEquality().hash(segments);
+      const ListEquality().hash(segments);
 
   @override
   String toString() {

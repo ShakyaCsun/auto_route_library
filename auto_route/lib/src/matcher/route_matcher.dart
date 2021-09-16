@@ -13,9 +13,11 @@ class RouteCollection {
   RouteCollection(this._routesMap) : assert(_routesMap.isNotEmpty);
 
   factory RouteCollection.from(List<RouteConfig> routes) {
-    final routesMap = LinkedHashMap<String, RouteConfig>();
-    routes.forEach((r) => routesMap[r.name] = r);
-    return RouteCollection(routesMap);
+    final routesMap = <String, RouteConfig>{};
+    for (final route in routes) {
+      routesMap[route.name] = route;
+    }
+    return RouteCollection(LinkedHashMap.from(routesMap));
   }
 
   Iterable<RouteConfig> get routes => _routesMap.values;
@@ -63,10 +65,13 @@ class RouteMatcher {
     );
   }
 
-  List<RouteMatch>? _match(Uri uri, RouteCollection collection,
-      {bool includePrefixMatches = false,
-      bool root = false,
-      String? redirectedFrom}) {
+  List<RouteMatch>? _match(
+    Uri uri,
+    RouteCollection collection, {
+    bool includePrefixMatches = false,
+    bool root = false,
+    String? redirectedFrom,
+  }) {
     final pathSegments = p.split(uri.path);
     final matches = <RouteMatch>[];
     for (final config in collection.routes) {
@@ -89,9 +94,15 @@ class RouteMatcher {
           // has rest
           if (config.hasSubTree) {
             final rest = uri.replace(
-                pathSegments: pathSegments.sublist(match.segments.length));
-            final children = _match(rest, config.children!,
-                includePrefixMatches: includePrefixMatches);
+              pathSegments: pathSegments.sublist(
+                match.segments.length,
+              ),
+            );
+            final children = _match(
+              rest,
+              config.children!,
+              includePrefixMatches: includePrefixMatches,
+            );
             match = match.copyWith(children: children);
           }
           matches.add(match);
@@ -104,7 +115,11 @@ class RouteMatcher {
           // include empty route if exists
           if (config.hasSubTree && !match.hasChildren) {
             match = match.copyWith(
-                children: _match(uri.replace(path: ''), config.children!));
+              children: _match(
+                uri.replace(path: ''),
+                config.children!,
+              ),
+            );
           }
 
           matches.add(match);
@@ -142,8 +157,11 @@ class RouteMatcher {
     return redirectMatches;
   }
 
-  RouteMatch? matchByPath(Uri url, RouteConfig config,
-      {String? redirectedFrom}) {
+  RouteMatch? matchByPath(
+    Uri url,
+    RouteConfig config, {
+    String? redirectedFrom,
+  }) {
     final parts = p.split(config.path);
     final segments = p.split(url.path);
 
@@ -237,7 +255,8 @@ class RouteMatcher {
   }
 
   Map<String, dynamic> _normalizeSingleValues(
-      Map<String, List<String>> queryParametersAll) {
+    Map<String, List<String>> queryParametersAll,
+  ) {
     final queryMap = <String, dynamic>{};
     for (final key in queryParametersAll.keys) {
       final list = queryParametersAll[key];

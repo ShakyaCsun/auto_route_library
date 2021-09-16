@@ -193,9 +193,8 @@ class _DeclarativeAutoRouterDelegate extends AutoRouterDelegate {
     if (tree.hasSegments) {
       controller.navigateAll(tree.segments);
     }
-    if (onNavigate != null) {
-      onNavigate!(tree, true);
-    }
+
+    onNavigate?.call(tree, true);
 
     return SynchronousFuture(null);
   }

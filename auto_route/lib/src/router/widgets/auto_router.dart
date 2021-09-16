@@ -50,15 +50,18 @@ class AutoRouter extends StatefulWidget {
 
   static StackRouter of(BuildContext context) {
     final scope = StackRouterScope.of(context);
-    assert(() {
-      if (scope == null) {
-        throw FlutterError(
+    assert(
+      () {
+        if (scope == null) {
+          throw FlutterError(
             'AutoRouter operation requested with a context that does not include an AutoRouter.\n'
             'The context used to retrieve the Router must be that of a widget that '
-            'is a descendant of an AutoRouter widget.');
-      }
-      return true;
-    }());
+            'is a descendant of an AutoRouter widget.',
+          );
+        }
+        return true;
+      }(),
+    );
     return scope!.controller;
   }
 
@@ -154,7 +157,9 @@ class AutoRouterState extends State<AutoRouter> {
 }
 
 typedef RoutesGenerator = List<PageRouteInfo> Function(
-    BuildContext context, List<PageRouteInfo> routes);
+  BuildContext context,
+  List<PageRouteInfo> routes,
+);
 
 class _DeclarativeAutoRouter extends StatefulWidget {
   final RoutesBuilder routes;
@@ -208,17 +213,18 @@ class _DeclarativeAutoRouterState extends State<_DeclarativeAutoRouter> {
       _navigatorObservers = _inheritableObserversBuilder();
       _parentController = parentScope.controller;
       _controller = NestedStackRouter(
-          parent: _parentController,
-          key: parentData.key,
-          routeData: parentData,
-          managedByWidget: true,
-          onRoutes: widget.onNavigate,
-          navigatorKey: widget.navigatorKey,
-          preMatchedRoutes: parentData.preMatchedPendingRoutes,
-          routeCollection: _parentController.routeCollection.subCollectionOf(
-            parentData.name,
-          ),
-          pageBuilder: _parentController.pageBuilder);
+        parent: _parentController,
+        key: parentData.key,
+        routeData: parentData,
+        managedByWidget: true,
+        onRoutes: widget.onNavigate,
+        navigatorKey: widget.navigatorKey,
+        preMatchedRoutes: parentData.preMatchedPendingRoutes,
+        routeCollection: _parentController.routeCollection.subCollectionOf(
+          parentData.name,
+        ),
+        pageBuilder: _parentController.pageBuilder,
+      );
       _parentController.attachChildController(_controller!);
     }
   }

@@ -29,7 +29,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  BottomNavigationBar buildBottomNav(BuildContext context, TabsRouter tabsRouter) {
+  BottomNavigationBar buildBottomNav(
+      BuildContext context, TabsRouter tabsRouter) {
     return BottomNavigationBar(
       currentIndex: tabsRouter.activeIndex,
       onTap: tabsRouter.setActiveIndex,

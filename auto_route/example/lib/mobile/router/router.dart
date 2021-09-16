@@ -86,7 +86,8 @@ class DialogModalRoute<T> extends CustomRoute<T> {
 
 // typedef CustomRouteBuilder = Route<T> Function<T>(BuildContext context, Widget child, CustomPage page);
 
-Route<T> myCustomRouteBuilder<T>(BuildContext context, Widget child, CustomPage<T> page) {
+Route<T> myCustomRouteBuilder<T>(
+    BuildContext context, Widget child, CustomPage<T> page) {
   return PageRouteBuilder(
       fullscreenDialog: page.fullscreenDialog,
       // this's important

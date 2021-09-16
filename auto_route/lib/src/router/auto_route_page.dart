@@ -129,11 +129,12 @@ class CupertinoPageX<T> extends _TitledAutoRoutePage<T> {
     bool fullscreenDialog = false,
     bool maintainState = true,
   }) : super(
-            routeData: routeData,
-            builder: builder,
-            maintainState: maintainState,
-            fullscreenDialog: fullscreenDialog,
-            title: title);
+          routeData: routeData,
+          builder: builder,
+          maintainState: maintainState,
+          fullscreenDialog: fullscreenDialog,
+          title: title,
+        );
 
   @override
   Route<T> onCreateRoute(BuildContext context) {
@@ -200,7 +201,10 @@ class AdaptivePage<T> extends _TitledAutoRoutePage<T> {
 }
 
 typedef CustomRouteBuilder = Route<T> Function<T>(
-    BuildContext context, Widget child, CustomPage<T> page);
+  BuildContext context,
+  Widget child,
+  CustomPage<T> page,
+);
 
 class CustomPage<T> extends AutoRoutePage<T> {
   final bool opaque;
@@ -256,10 +260,11 @@ class CustomPage<T> extends AutoRoutePage<T> {
   }
 
   Widget _defaultTransitionsBuilder(
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     return child;
   }
 }

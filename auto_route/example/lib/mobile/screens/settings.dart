@@ -12,7 +12,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> with AutoRouteAware {
-  var _count = 0;
+  final _count = 0;
 
   @override
   void didInitTabRoute(TabPageRoute? previousRoute) {}
@@ -30,7 +30,8 @@ class _SettingsPageState extends State<SettingsPage> with AutoRouteAware {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final observer = RouterScope.of(context).firstObserverOfType<AutoRouteObserver>();
+    final observer =
+        RouterScope.of(context).firstObserverOfType<AutoRouteObserver>();
     if (observer != null) {
       observer.subscribe(this, context.routeData);
     }

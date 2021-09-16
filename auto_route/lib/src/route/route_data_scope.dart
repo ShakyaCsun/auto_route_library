@@ -14,15 +14,18 @@ class RouteDataScope extends InheritedWidget {
 
   static RouteData of(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<RouteDataScope>();
-    assert(() {
-      if (scope == null) {
-        throw FlutterError(
+    assert(
+      () {
+        if (scope == null) {
+          throw FlutterError(
             'RouteData operation requested with a context that does not include an RouteData.\n'
             'The context used to retrieve the RouteData must be that of a widget that '
-            'is a descendant of a AutoRoutePage.');
-      }
-      return true;
-    }());
+            'is a descendant of a AutoRoutePage.',
+          );
+        }
+        return true;
+      }(),
+    );
     return scope!.routeData;
   }
 

@@ -420,8 +420,8 @@ class TabsRouter extends RoutingController {
       if (pageToUpdateIndex != -1) {
         if (!managedByWidget) {
           setActiveIndex(pageToUpdateIndex);
-        } else if (onNavigate != null) {
-          onNavigate!(mayUpdateRoute, false);
+        } else {
+          onNavigate?.call(mayUpdateRoute, false);
         }
         final mayUpdateController = _childControllers[mayUpdateRoute.key];
 

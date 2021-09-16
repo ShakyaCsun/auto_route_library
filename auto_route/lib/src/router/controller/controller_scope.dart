@@ -18,15 +18,18 @@ class RouterScope extends InheritedWidget {
 
   static RouterScope of(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<RouterScope>();
-    assert(() {
-      if (scope == null) {
-        throw FlutterError(
+    assert(
+      () {
+        if (scope == null) {
+          throw FlutterError(
             'RouterScope operation requested with a context that does not include a RouterScope.\n'
             'The context used to retrieve the Router must be that of a widget that '
-            'is a descendant of a RouterScope widget.');
-      }
-      return true;
-    }());
+            'is a descendant of a RouterScope widget.',
+          );
+        }
+        return true;
+      }(),
+    );
     return scope!;
   }
 
