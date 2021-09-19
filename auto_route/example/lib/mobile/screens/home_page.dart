@@ -15,17 +15,25 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(context) {
-    return AutoTabsScaffold(
-      appBarBuilder: (_, tabsRouter) => AppBar(
-        title: Text(context.topRoute.name),
-        leading: AutoBackButton(),
-      ),
-      routes: [
-        BooksTab(),
-        ProfileTab(),
-        SettingsTab(tab: 'default'),
+    return Column(
+      children: [
+        Expanded(
+          child: AutoTabsScaffold(
+            homeIndex: 0,
+            appBarBuilder: (context, tabsRouter) {
+              return AppBar(
+                  title: Text(context.topRoute.name),
+                  leading: AutoBackButton());
+            },
+            routes: [
+              BooksTab(),
+              ProfileTab(),
+              SettingsTab(tab: 'default'),
+            ],
+            bottomNavigationBuilder: buildBottomNav,
+          ),
+        ),
       ],
-      bottomNavigationBuilder: buildBottomNav,
     );
   }
 

@@ -44,6 +44,8 @@ class _SettingsPageState extends State<SettingsPage> with AutoRouteAware {
 
   @override
   Widget build(BuildContext context) {
+    print('------ building SettingsPage');
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

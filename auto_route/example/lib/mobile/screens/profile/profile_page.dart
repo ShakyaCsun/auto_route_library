@@ -28,19 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {
-                // context.router.push(MyBooksRoute());
-
-                showDialog(
-                    context: context,
-                    useRootNavigator: true,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text('Are you sure?'),
-                        actions: [
-                          BackButton(),
-                        ],
-                      );
-                    });
+                context.router.push(MyBooksRoute());
               },
               child: Text('My Books'),
             ),
